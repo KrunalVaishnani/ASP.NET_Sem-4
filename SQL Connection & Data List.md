@@ -69,7 +69,7 @@ In your controller, declare a configuration variable and initialize it using the
 ```csharp
 private IConfiguration configuration;
 
-public ProductController(IConfiguration _configuration)
+public CountryController(IConfiguration _configuration)
 {
     configuration = _configuration;
 }
