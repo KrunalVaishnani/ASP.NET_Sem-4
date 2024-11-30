@@ -6,7 +6,10 @@
 
 ```sql
 CREATE PROCEDURE [dbo].[PR_Country_Insert]
-@countryName varchar(50), @countryCode varchar(5), @countryCapital varchar(100), @userID int
+ @countryName varchar(50),
+ @countryCode varchar(5),
+ @countryCapital varchar(100),
+ @userID int
 AS
 BEGIN
     INSERT INTO [dbo].[Country]
@@ -50,7 +53,8 @@ END
 
 ```sql
 CREATE PROCEDURE [dbo].[PR_Country_SelectByPK]
-@countryID int, @userID int
+ @countryID INT,
+ @userID INT
 AS
 BEGIN
     SELECT
