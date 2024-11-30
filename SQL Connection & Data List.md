@@ -11,8 +11,9 @@ BEGIN
         [dbo].[Country].[CountryName],
         [dbo].[Country].[CountryCode],
         [dbo].[Country].[CountryCapital],
-        [dbo].[User].[UserID],
-        [dbo].[User].[DisplayName]
+        [dbo].[User].[DisplayName],
+		[dbo].[User].[UserID],
+		[dbo].[Country].[CreationDate]
     FROM
         [dbo].[Country]
     INNER JOIN
