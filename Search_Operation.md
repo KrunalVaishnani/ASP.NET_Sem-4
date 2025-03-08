@@ -2,43 +2,7 @@
 
 **Prerequisite**: Stored Procedure for Fetching Cities Based on Filters
 
-## Step 1: Implement Search Logic in `CityFilter` Action Method
-
-```csharp
-public IActionResult CityFilter(IFormCollection fc)
-{
-    string connectionString = this._configuration.GetConnectionString("ConnectionString");
-    SqlConnection connection = new SqlConnection(connectionString);
-    connection.Open();
-    SqlCommand command = connection.CreateCommand();
-    command.CommandType = System.Data.CommandType.StoredProcedure;
-    command.CommandText = "PR_City_SelectAll";
-    command.Parameters.Add("@UserID", SqlDbType.Int).Value = CommonVariable.UserID();
-    command.Parameters.Add("@CityName", SqlDbType.VarChar).Value = fc["CityName"].ToString();
-    command.Parameters.Add("@CityCode", SqlDbType.VarChar).Value = fc["CityCode"].ToString();
-
-    SqlDataReader reader = command.ExecuteReader();
-    DataTable dataTable = new DataTable();
-    dataTable.Load(reader);
-    return View("CityList", dataTable);
-}
-```
-
-## Step 2: Create Search Fields in View
-
-```html
-<div class="form-group col-md-2">
-    <input type="text" id="searchBox" name="CityName" class="form-control" placeholder="City Name...">
-</div>
-<div class="form-group col-md-2">
-    <input type="text" id="searchBox" name="CityCode" class="form-control" placeholder="City Code...">
-</div>
-<div class="form-group col-md-2">
-    <input type="submit" asp-action="CityFilter" asp-controller="City" id="searchBox" class="btn btn-success form-control" value="Submit">
-</div>
-```
-
-## Step 3: Create Stored Procedure for Searching Cities
+## Step 1: Create Stored Procedure for Searching Cities
 
 ```sql
 CREATE PROCEDURE [dbo].[PR_City_SelectAll]
@@ -69,6 +33,41 @@ BEGIN
         AND ([dbo].[City].[CityName] LIKE '%' + @CityName + '%' OR @CityName IS NULL)
         AND ([dbo].[City].[CityCode] LIKE '%' + @CityCode + '%' OR @CityCode IS NULL)
 END
+```
+## Step 2: Implement Search Logic in `CityFilter` Action Method
+
+```csharp
+public IActionResult CityFilter(IFormCollection fc)
+{
+    string connectionString = this._configuration.GetConnectionString("ConnectionString");
+    SqlConnection connection = new SqlConnection(connectionString);
+    connection.Open();
+    SqlCommand command = connection.CreateCommand();
+    command.CommandType = System.Data.CommandType.StoredProcedure;
+    command.CommandText = "PR_City_SelectAll";
+    command.Parameters.Add("@UserID", SqlDbType.Int).Value = CommonVariable.UserID();
+    command.Parameters.Add("@CityName", SqlDbType.VarChar).Value = fc["CityName"].ToString();
+    command.Parameters.Add("@CityCode", SqlDbType.VarChar).Value = fc["CityCode"].ToString();
+
+    SqlDataReader reader = command.ExecuteReader();
+    DataTable dataTable = new DataTable();
+    dataTable.Load(reader);
+    return View("CityList", dataTable);
+}
+```
+
+## Step 3: Create Search Fields in View
+
+```html
+<div class="form-group col-md-2">
+    <input type="text" id="searchBox" name="CityName" class="form-control" placeholder="City Name...">
+</div>
+<div class="form-group col-md-2">
+    <input type="text" id="searchBox" name="CityCode" class="form-control" placeholder="City Code...">
+</div>
+<div class="form-group col-md-2">
+    <input type="submit" asp-action="CityFilter" asp-controller="City" id="searchBox" class="btn btn-success form-control" value="Submit">
+</div>
 ```
 
 ## Step 4: Verify Search Operation
