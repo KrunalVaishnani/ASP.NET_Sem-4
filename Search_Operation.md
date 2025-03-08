@@ -39,6 +39,9 @@ END
 ```csharp
 public IActionResult CityFilter(IFormCollection fc)
 {
+    CountryDropDown();
+    StateDropDown(null);
+
     string connectionString = this._configuration.GetConnectionString("ConnectionString");
     SqlConnection connection = new SqlConnection(connectionString);
     connection.Open();
