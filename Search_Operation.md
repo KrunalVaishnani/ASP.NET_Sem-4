@@ -74,7 +74,7 @@ public IActionResult CityFilter(IFormCollection fc)
         <div class="form-group col-md-2">
             <select class="form-control" id="searchBox" name="StateID">
                 <option value="">State Name...</option>
-                @foreach (var state in ViewBag.StateList) ////ViewBag.StateList fetch in StateDropdown
+                @foreach (var state in ViewBag.StateList) //ViewBag.StateList fetch in StateDropdown
                 {
                     <option value="@state.StateID">@state.StateName</option>
                 }
