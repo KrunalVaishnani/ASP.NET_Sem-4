@@ -59,15 +59,40 @@ public IActionResult CityFilter(IFormCollection fc)
 ## Step 3: Create Search Fields in View
 
 ```html
-<div class="form-group col-md-2">
-    <input type="text" id="searchBox" name="CityName" class="form-control" placeholder="City Name...">
+<!--Filter Start -->
+<div class="table-toolbar">
+    <form method="post">
+        <div class="form-group col-md-2">
+            <select class="form-control" id="searchBox" name="CountryID">
+                <option value="">Country Name...</option>
+                @foreach (var country in ViewBag.CountryList)  //ViewBag.CountryList fetch in CountryDropdown
+                {
+                    <option value="@country.CountryID">@country.CountryName</option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <select class="form-control" id="searchBox" name="StateID">
+                <option value="">State Name...</option>
+                @foreach (var state in ViewBag.StateList) ////ViewBag.StateList fetch in StateDropdown
+                {
+                    <option value="@state.StateID">@state.StateName</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group col-md-2">
+            <input type="text" id="searchBox" name="CityName" class="form-control" placeholder="City Name...">
+        </div>
+        <div class="form-group col-md-2">
+            <input type="text" id="searchBox" name="CityCode" class="form-control" placeholder="City Code...">
+        </div>
+        <div class="form-group col-md-2">
+            <input type="submit" asp-action="CityFilter" asp-controller="City" id="searchBox" class="btn btn-success form-control" value="submit">
+        </div>
+    </form>
 </div>
-<div class="form-group col-md-2">
-    <input type="text" id="searchBox" name="CityCode" class="form-control" placeholder="City Code...">
-</div>
-<div class="form-group col-md-2">
-    <input type="submit" asp-action="CityFilter" asp-controller="City" id="searchBox" class="btn btn-success form-control" value="Submit">
-</div>
+<!--Filter End-->
 ```
 
 ## Step 4: Verify Search Operation
